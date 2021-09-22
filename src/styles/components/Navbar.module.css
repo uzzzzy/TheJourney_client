@@ -1,0 +1,64 @@
+nav ul {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+nav ul li button {
+    width: 100px;
+    height: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    color: white;
+}
+
+nav ul li button:hover {
+    background-color: #20769b;
+    border-color: rebeccapurple;
+}
+
+.login {
+    margin-right: 17px;
+    border: solid 2px white;
+    border-radius: 5px;
+}
+
+.register {
+    background: #2e86de;
+    border: solid 2px #2e86de;
+    border-radius: 5px;
+}
+
+.navbar {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.logo {
+    width: 100px;
+}
+
+.user {
+    display: block;
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1.5px solid #ffffff;
+    box-sizing: border-box;
+    object-fit: cover;
+}

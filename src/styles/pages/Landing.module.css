@@ -1,0 +1,6 @@
+.jumbotron {
+    width: 100vw;
+    height: 470px;
+    object-fit: cover;
+    object-position: bottom;
+}

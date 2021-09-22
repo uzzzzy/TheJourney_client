@@ -1,0 +1,76 @@
+.modalForm {
+    position: fixed;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    padding: 41px 31px;
+    width: 412px;
+    max-height: 95vh;
+    overflow-y: auto;
+}
+
+.modalForm h2 {
+    text-transform: capitalize;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 55px;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 44px;
+}
+
+.modalForm label {
+    margin-left: 9px;
+    margin-bottom: 9px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    color: #000000;
+}
+
+.modalForm input {
+    background: rgba(210, 210, 210, 0.25);
+    border: 2px solid rgba(210, 210, 210, 0.25);
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 9px;
+    margin-bottom: 35px;
+}
+
+.modalForm textarea {
+    background: rgba(210, 210, 210, 0.25);
+    border: 2px solid rgba(210, 210, 210, 0.25);
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 9px;
+    margin-bottom: 35px;
+    height: 169px;
+    resize: none;
+}
+
+.modalForm button {
+    background: #2e86de;
+    text-transform: capitalize;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.modalForm p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 25px;
+    color: #b1b1b1;
+}
+
+.modalForm p b:hover {
+    color: #111;
+}
