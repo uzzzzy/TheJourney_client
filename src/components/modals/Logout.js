@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
 
-export default function Logout({ setModal, setToken }) {
+export default function Logout({ setModal, setToken, setUser }) {
     let history = useHistory()
 
     const handleBtn = (e) => {
@@ -8,6 +8,7 @@ export default function Logout({ setModal, setToken }) {
             localStorage.removeItem('token')
             setToken()
             setModal()
+            setUser()
             history.push('/')
         } else {
             setModal()

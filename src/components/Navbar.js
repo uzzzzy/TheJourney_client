@@ -54,7 +54,7 @@ export default function Navbar({ user, setModal }) {
     }
 
     return (
-        <nav className={`flex justify-center item-center w-full fixed ${shadow}`} style={{ backgroundColor: `rgb(32, 118, 155, ${offset * 5})` }}>
+        <nav className={`flex justify-center px-5 lg:px-0 item-center w-full fixed ${shadow}`} style={{ backgroundColor: `rgb(32, 118, 155, ${offset * 5})` }}>
             <div className="container">
                 <div className="flex justify-center md:justify-between items-center w-full h-full">
                     <Link to="/">

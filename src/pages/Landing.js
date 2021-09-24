@@ -1,49 +1,44 @@
 import { useEffect, useState } from 'react'
-import parse from 'html-react-parser'
 
 import { api } from '../config/api'
-import { formatDate } from '../functions'
 
 import style from '../styles/pages/Landing.module.css'
+import CardJourney from '../components/CardJourney'
+
+const query = {
+    params: {
+        limit: 4,
+        order: 'createdAt,desc',
+    },
+}
 
 export default function Landing() {
     const [journeys, setJourneys] = useState()
-    const [search, setSearch] = useState('')
 
     useEffect(() => {
         // if (search || search === '') {
         if (!journeys) {
-            fetchJourneys()
+            api.get('/journeys', query)
+                .then((res) => {
+                    setJourneys(res.data.data.journeys)
+                })
+                .catch((err) => err)
         }
         // }
     }, [journeys])
 
-    const fetchJourneys = () => {
+    const fetchJourneys = (str) => {
         setJourneys()
-        const query = {
-            limit: 4,
-        }
+        const config = query
 
-        if (search.length > 0) query.params = { search }
+        if (str) config.params = { ...config.params, search: str }
 
-        console.log(query)
-
+        console.log(config.params)
         api.get('/journeys', query)
             .then((res) => {
                 setJourneys(res.data.data.journeys)
             })
             .catch((err) => err)
-    }
-
-    const handleSearch = (e) => {
-        const str = e.target.value.length > 0 ? e.target.value : ''
-        setSearch(str)
-    }
-
-    const getImg = (str) => {
-        var src = str.match(/<img.+src=(?:"|')(.+?)(?:"|')(?:.+?)>/)
-        if (src) return src[1]
-        else return null
     }
 
     return (
@@ -55,9 +50,9 @@ export default function Landing() {
             )}
 
             <section className={style.journeys}>
-                <div className="container">
+                <div className="container px-5 lg:px-0">
                     <h1>Journey</h1>
-                    <Search handleSearch={handleSearch} fetchJourneys={fetchJourneys} />
+                    <Search fetchJourneys={fetchJourneys} />
                 </div>
             </section>
 
@@ -65,15 +60,7 @@ export default function Landing() {
                 <article className="container">
                     <section className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-8 ">
                         {journeys?.map((item) => (
-                            <article key={item.id} className="bg-white group relative rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transform duration-200 ">
-                                <img src={getImg(item.description)} alt="journey" className="w-full h-60 object-center object-cover rounded-lg" />
-
-                                <div className="px-3 py-4 ">
-                                    <h1 className="text-lg font-extrabold capitalize">{item.title}</h1>
-                                    <h3 className="text-sm text-gray-300 font-semibold font-mono pb-4 my-1 ">{formatDate(item.createdAt)}</h3>
-                                    <div className="h-40 overflow-ellipsis overflow-hidden"> {parse(item.description.replace(/<img[^>]*>/g, ''))}</div>
-                                </div>
-                            </article>
+                            <CardJourney key={item.id} item={item} />
                         ))}
                     </section>
                 </article>
@@ -82,7 +69,11 @@ export default function Landing() {
     )
 }
 
-function Search({ handleSearch, fetchJourneys }) {
+function Search({ fetchJourneys }) {
+    const handleSearch = (e) => {
+        const str = e.target.value.length > 0 ? e.target.value : ''
+        fetchJourneys(str)
+    }
     return (
         <div className="w-auto h-10 pl-3 pr-2 m-10 bg-white border rounded-full flex justify-between items-center relative">
             <input type="search" name="search" id="search" placeholder="Search" className="appearance-none w-full outline-none focus:outline-none active:outline-none" onChange={handleSearch} />

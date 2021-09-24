@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import PrivateRoute from './components/PrivateRoute'
 
 import Landing from './pages/Landing'
+import Journey from './pages/Journey'
 import Profile from './pages/user/Profile'
 import Write from './pages/user/Write'
 
@@ -19,9 +20,7 @@ function App() {
     const [modal, setModal] = useState()
 
     useEffect(() => {
-        console.log('App Mount')
         if (token || localStorage.token) {
-            console.log('App Update token')
             if (!localStorage.token) localStorage.token = token
             setAuthToken(localStorage.token)
             api.post('/verify')
@@ -37,8 +36,6 @@ function App() {
             setUser()
             setAuthToken()
         }
-
-        return console.log('App Unmount')
     }, [token])
 
     return (
@@ -47,12 +44,12 @@ function App() {
             <Route exact path="/">
                 <Landing />
             </Route>
-
             <div className="flex justify-center content">
+                <Route path="/journey/:id" user={user} component={Journey} />
                 <PrivateRoute path="/profile" user={user} component={Profile} />
                 <PrivateRoute path="/write" user={user} component={Write} />
             </div>
-            {modal?.open && <Modal modal={modal} setModal={setModal} setToken={setToken} />}
+            {modal?.open && <Modal modal={modal} setModal={setModal} setToken={setToken} setUser={setUser} />}
         </Router>
     )
 }
