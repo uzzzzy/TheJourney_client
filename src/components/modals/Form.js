@@ -31,6 +31,7 @@ export default function Form({ opt, setModal, setToken }) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        setError()
 
         let config = {
             email: form.email,
@@ -48,6 +49,11 @@ export default function Form({ opt, setModal, setToken }) {
 
         api.post(`/${opt}`, config)
             .then((res) => {
+                setModal({
+                    open: true,
+                    opt: 'success',
+                    message: `${opt} was Successful. You can use our services!`,
+                })
                 localStorage.token = res.data.token
                 setToken(res.data.token)
             })
@@ -70,20 +76,20 @@ export default function Form({ opt, setModal, setToken }) {
             {opt === 'register' && (
                 <>
                     <label htmlFor="fullName">Full Name</label>
-                    <input className="form-control" id="fullName" name="fullName" onChange={handleOnChange} />
+                    <input className="form-control" id="fullName" name="fullName" onChange={handleOnChange} required />
                 </>
             )}
             <label htmlFor="email">Email</label>
-            <input className="form-control" id="email" name="email" onChange={handleOnChange} />
+            <input className="form-control" id="email" name="email" onChange={handleOnChange} required />
 
             <label htmlFor="password">Password</label>
-            <input className="form-control" id="password" name="password" type="password" onChange={handleOnChange} />
+            <input className="form-control" id="password" name="password" type="password" onChange={handleOnChange} required />
             {opt === 'register' && (
                 <>
                     <label htmlFor="phone">Phone</label>
-                    <input className="form-control" id="phone" name="phone" onChange={handleOnChange} />
+                    <input className="form-control" id="phone" name="phone" onChange={handleOnChange} required />
                     <label htmlFor="address">Address</label>
-                    <textarea id="address" name="address" onChange={handleOnChange} />
+                    <textarea id="address" name="address" onChange={handleOnChange} required />
                 </>
             )}
 

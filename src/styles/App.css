@@ -1,3 +1,6 @@
+p {
+    margin-bottom: 10px;
+}
 /* Input */
 .form-control {
     padding: 10px;
@@ -10,11 +13,20 @@
     font-size: 18px;
     line-height: 25px;
     color: rgba(104, 50, 50, 0.5);
+    outline: none;
 }
 
 .form-control:focus {
     color: #073ebd;
-    border: 2px solid #dadff7;
-    background-color: #dadbf7;
+    border: 2px solid #8d9ef0;
+    background-color: #9fa2ff;
     box-shadow: 0 14px 26px -12px rgba(56, 27, 221, 0.39), 0 4px 23px 0 rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(39, 71, 176, 0.2);
+}
+
+.content {
+    padding-top: 85px;
+}
+
+.fr-wrapper {
+    /* z-index: 0 !important; */
 }

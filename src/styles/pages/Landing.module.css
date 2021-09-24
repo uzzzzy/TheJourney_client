@@ -4,3 +4,21 @@
     object-fit: cover;
     object-position: bottom;
 }
+
+.journeys {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.journeys > div > h1 {
+    font-weight: 900;
+    font-size: 48px;
+    line-height: 66px;
+
+    color: #000000;
+}
+
+.journeys > div #search {
+    margin-top: 41px;
+}

@@ -4,9 +4,9 @@
     height: 100vh;
     top: 0;
     left: 0;
-    background-color: rgba(67, 132, 206, 0.849);
+    background-color: rgba(67, 132, 206, 0.582);
     display: flex;
     justify-content: center;
     align-items: center;
-    backdrop-filter: blur(5px);
+    backdrop-filter: blur(2px);
 }
