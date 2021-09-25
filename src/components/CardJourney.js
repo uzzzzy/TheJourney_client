@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom'
 import parse from 'html-react-parser'
 
 import { formatDate } from '../functions'
+import { path } from '../config/api'
 
 export default function CardJourney({ item }) {
     let history = useHistory()
@@ -14,7 +15,7 @@ export default function CardJourney({ item }) {
             images.push(img[1])
         }
         if (images.length > 0) return images[0]
-        else return 'http://localhost:5000/uploads/noimage.jpg'
+        else return 'http://' + path + '/uploads/noimage.jpg'
     }
 
     return (
