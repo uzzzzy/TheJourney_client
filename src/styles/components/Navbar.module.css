@@ -75,7 +75,7 @@ nav ul li button:hover {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    border: 1.5px solid #ffffff;
+    border: 2.5px solid #ffffff;
     box-sizing: border-box;
     object-fit: cover;
     cursor: pointer;
@@ -92,7 +92,7 @@ nav ul li button:hover {
 
 .dropdown ul {
     display: block;
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.76);
     border-radius: 10px;
     -webkit-filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.5));

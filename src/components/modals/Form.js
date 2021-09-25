@@ -34,7 +34,7 @@ export default function Form({ opt, setModal, setToken }) {
         setError()
 
         let config = {
-            email: form.email,
+            email: form.email.toLowerCase(),
             password: form.password,
         }
 

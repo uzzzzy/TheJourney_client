@@ -9,58 +9,78 @@ import FroalaEditor from 'react-froala-wysiwyg'
 // import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView'
 
 import 'froala-editor/js/plugins.pkgd.min.js'
+import 'froala-editor/js/plugins/code_beautifier.min.js'
+import 'froala-editor/js/plugins/image_manager.min.js'
 
-import { api } from '../../config/api'
+import { path, api } from '../../config/api'
 import { formatDate } from '../../functions'
 
-// import style from '../../styles/pages/user/Write.module.css'
-const config = {
-    heightMin: 300,
-    heightMax: 500,
-    placeholderText: '',
-    toolbarSticky: false,
-    imageSplitHTML: true,
-    toolbarButtons: ['fullscreen', '|', 'fontFamily', 'fontSize', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', '|', 'align', 'formatOL', 'formatUL', 'outdent', 'indent', 'quote', '-', 'insertLink', 'insertImage', 'insertHR', '|', 'undo', 'redo', 'html'],
-    // toolbarButtons: ['fullScreen', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'outdent', 'indent', 'clearFormatting', 'insertImage', 'html', 'inlineClass'],
-    // toolbarButtonsXS: ['undo', 'redo', '-', 'bold', 'italic', 'underline'],
-    imageUploadParam: 'image',
-    imageUploadURL: 'http://localhost:5000/api/v1/image',
-    imageUploadMethod: 'POST',
-    imageMaxSize: 5 * 1024 * 1024,
-    imageAllowedTypes: ['jpeg', 'jpg', 'png'],
-    events: {
-        'image.beforeUpload': function (files) {
-            // Return false if you want to stop the image upload..
-        },
-        'image.uploaded': function (response) {
-            // Image was uploaded to the server.
-            // editor.file.insert(e.link)
-            // return false
-        },
-        'image.inserted': function ($img, response) {
-            // Image was inserted in the editor.
-            // console.log($img[0])
-            // $img[0].style = ''
-        },
-        'image.replaced': function ($img, response) {
-            // Image was replaced in the editor.
-        },
-        'image.removed': function ($img) {
-            api.delete('/image', {
-                data: {
-                    link: $img[0].currentSrc,
-                },
-            })
-        },
-        'image.error': function (error, response) {
-            console.log('err', response)
-        },
-    },
-
-    // imageEditButtons: ['imageAlign', 'imageRemove'],
-}
-
 export default function Write({ user }) {
+    const config = {
+        heightMin: 300,
+        heightMax: 500,
+        placeholderText: '',
+        toolbarSticky: false,
+        imageSplitHTML: true,
+        tabSpaces: 12,
+        requestHeaders: {
+            Authorization: 'Bearer ' + localStorage.token,
+        },
+        toolbarButtons: {
+            moreText: {
+                buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting'],
+            },
+            moreParagraph: {
+                buttons: ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote'],
+            },
+            moreRich: {
+                buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR'],
+            },
+            moreMisc: {
+                buttons: ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help'],
+                align: 'right',
+                buttonsVisible: 2,
+            },
+        },
+        imageManagerPreLoader: 'https://i.pinimg.com/originals/d7/34/49/d73449313ecedb997822efecd1ee3eac.gif',
+        imageManagerLoadURL: 'http://' + path + '/api/v1/images',
+        imageManagerLoadMethod: 'GET',
+        imageUploadParam: 'image',
+        imageUploadURL: 'http://' + path + '/api/v1/image',
+        imageUploadMethod: 'POST',
+        imageManagerDeleteURL: 'http://' + path + '/api/v1/image',
+        imageManagerDeleteMethod: 'DELETE',
+        imageMaxSize: 10 * 1000 * 1000,
+        imageAllowedTypes: ['jpeg', 'jpg', 'png'],
+        events: {
+            'image.beforeUpload': function (files) {
+                // Return false if you want to stop the image upload..
+            },
+            'image.uploaded': function (response) {
+                // Image was uploaded to the server.
+                // editor.file.insert(e.link)
+                // return false
+            },
+            'image.inserted': function ($img, response) {
+                // Image was inserted in the editor.
+                // console.log($img[0])
+                // $img[0].style = ''
+            },
+            'image.replaced': function ($img, response) {
+                // Image was replaced in the editor.
+            },
+            'image.removed': function ($img) {
+                // api.delete('/image', {
+                //     data: {
+                //         link: $img[0].currentSrc,
+                //     },
+                // })
+            },
+            'image.error': function (error, response) {
+                console.log('err', response)
+            },
+        },
+    }
     let history = useHistory()
     const [title, setTitle] = useState('')
     const [html, setHtml] = useState('')
@@ -86,7 +106,7 @@ export default function Write({ user }) {
                 description,
             }
 
-            api.post('/journey', data).then((res) => history.push('/journey/' + res.data.result.id))
+            api.post('/journey', data).then((res) => history.push('/profile'))
         }
     }
 
@@ -112,8 +132,8 @@ export default function Write({ user }) {
                         <div className="flex flex-col md:flex-row md:justify-between">
                             <h3 className="text-3xl font-bold">{title ? title : '<notitle>'}</h3>
                         </div>
-                        <h5 className="my-5 text-md text-blue-500">{formatDate(datetime)}</h5>
-                        <h5 className="text-xl font-medium">by: {user.fullName}</h5>
+                        <h5 className="text-sm font-bold text-gray-500 my-2 mt-5">by: {user.fullName}</h5>
+                        <h5 className="mb-5 text-md text-blue-500">{formatDate(datetime)}</h5>
                         <div>{parse(html)}</div>
                     </article>
                 </div>

@@ -41,7 +41,8 @@ function App() {
     return (
         <Router>
             <Navbar user={user} setModal={setModal} />
-            <Route exact path="/">
+
+            <Route exact path="/" user={user}>
                 <Landing />
             </Route>
             <div className="flex justify-center content">

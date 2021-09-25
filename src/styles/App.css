@@ -1,6 +1,43 @@
 p {
     margin-bottom: 10px;
 }
+
+/* Journey styling */
+article *,
+.fr-wrapper * {
+    background: transparent !important;
+    background-color: transparent !important;
+}
+article h1,
+.fr-wrapper h1 {
+    margin-top: 10px;
+    font-size: 40pt;
+}
+
+article h2,
+.fr-wrapper h2 {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 25pt;
+}
+
+article img,
+.fr-wrapper img {
+    margin: 30px auto;
+    border-radius: 10px;
+    min-width: 30vw;
+}
+
+article em,
+.fr-wrapper em {
+    color: gray;
+}
+
+article a,
+.fr-wrapper a {
+    color: brown;
+}
+
 /* Input */
 .form-control {
     padding: 10px;
@@ -25,8 +62,4 @@ p {
 
 .content {
     padding-top: 85px;
-}
-
-.fr-wrapper {
-    /* z-index: 0 !important; */
 }

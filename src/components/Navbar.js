@@ -22,7 +22,7 @@ export default function Navbar({ user, setModal }) {
         if (!user)
             window.onscroll = () => {
                 let y = window.pageYOffset / window.innerHeight
-                if (offset < 0.18 || y < offset) setOffset(y < 0.15 ? y : 0.18)
+                if (offset < 0.2 || y < offset) setOffset(y < 0.2 ? y : 0.2)
             }
 
         if (offset > 0 || user) {
@@ -54,7 +54,7 @@ export default function Navbar({ user, setModal }) {
     }
 
     return (
-        <nav className={`flex justify-center px-5 lg:px-0 item-center w-full fixed ${shadow}`} style={{ backgroundColor: `rgb(32, 118, 155, ${offset * 5})` }}>
+        <nav className={`flex justify-center px-5 lg:px-0 item-center w-full fixed ${shadow}`} style={{ backgroundColor: `rgb(32, 118, 155, ${offset * 2.5 + 0.3})` }}>
             <div className="container">
                 <div className="flex justify-center md:justify-between items-center w-full h-full">
                     <Link to="/">
@@ -81,7 +81,7 @@ export default function Navbar({ user, setModal }) {
                                                 </li>
                                                 <hr />
                                                 <li id="btn-logout" onClick={handleBtn}>
-                                                    <img src={IconLogout} className={style.dropdownIcon} alt="Logout" />
+                                                    <img id="btn-logout" src={IconLogout} className={style.dropdownIcon} alt="Logout" />
                                                     <span id="btn-logout">Logout</span>
                                                 </li>
                                             </ul>
