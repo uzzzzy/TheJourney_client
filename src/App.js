@@ -13,25 +13,34 @@ import Profile from './pages/user/Profile'
 import Write from './pages/user/Write'
 
 import './styles/App.css'
+import Loading from './components/Loading'
 
 function App() {
+    const [login, setLogin] = useState()
     const [token, setToken] = useState()
     const [user, setUser] = useState()
     const [modal, setModal] = useState()
 
     useEffect(() => {
         if (token || localStorage.token) {
+            setLogin(undefined)
             if (!localStorage.token) localStorage.token = token
             setAuthToken(localStorage.token)
             api.post('/verify')
                 .then((res) => {
-                    setUser(res.data.data.user)
+                    setTimeout(() => {
+                        setLogin(true)
+                        setUser(res.data.data.user)
+                    }, 3000)
                 })
                 .catch((err) => {
+                    setLogin(false)
                     localStorage.removeItem('token')
                     setToken()
                 })
+            console.log('token set')
         } else {
+            setLogin(false)
             setToken()
             setUser()
             setAuthToken()
@@ -43,7 +52,7 @@ function App() {
             <Navbar user={user} setModal={setModal} />
 
             <Route exact path="/" user={user}>
-                <Landing />
+                {login !== undefined ? <Landing user={user} setModal={setModal} /> : <Loading />}
             </Route>
             <div className="flex justify-center content">
                 <Route path="/journey/:id" user={user} component={Journey} />

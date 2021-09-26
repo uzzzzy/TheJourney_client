@@ -10,7 +10,6 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
     overflow: auto;
     max-height: 80vh;
 }
@@ -78,4 +77,15 @@
 
 .modalForm p b:hover {
     color: #111;
+}
+
+@media only screen and (max-width: 768px) {
+    .modalForm {
+        width: 100vw !important;
+        border-radius: 0;
+        max-height: 100vh;
+        height: 100vh;
+        background-color: white;
+        overflow-x: hidden;
+    }
 }
