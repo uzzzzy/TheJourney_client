@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { api, setAuthToken } from './config/api'
 
@@ -11,9 +11,11 @@ import Landing from './pages/Landing'
 import Journey from './pages/Journey'
 import Profile from './pages/user/Profile'
 import Write from './pages/user/Write'
+import NotFound from './pages/NotFound'
 
 import './styles/App.css'
 import Loading from './components/Loading'
+import Bookmark from './pages/user/Bookmark'
 
 function App() {
     const [login, setLogin] = useState()
@@ -38,7 +40,6 @@ function App() {
                     localStorage.removeItem('token')
                     setToken()
                 })
-            console.log('token set')
         } else {
             setLogin(false)
             setToken()
@@ -50,14 +51,25 @@ function App() {
     return (
         <Router>
             <Navbar user={user} setModal={setModal} />
-
-            <Route exact path="/" user={user}>
-                {login !== undefined ? <Landing user={user} setModal={setModal} /> : <Loading />}
-            </Route>
             <div className="flex justify-center content">
-                <Route path="/journey/:id" user={user} component={Journey} />
-                <PrivateRoute path="/profile" user={user} component={Profile} />
-                <PrivateRoute path="/write" user={user} component={Write} />
+                <Switch>
+                    <Route exact path="/">
+                        {login !== undefined ? <Landing user={user} setModal={setModal} /> : <Loading />}
+                    </Route>
+                    <Route path="/journey/:id">
+                        <Journey user={user} setModal={setModal} />
+                    </Route>
+
+                    <Route path="/user/:id">
+                        <Profile user={user} />
+                    </Route>
+
+                    {/* User Route */}
+                    <PrivateRoute path="/profile" user={user} setUser={setUser} component={Profile} />
+                    <PrivateRoute path="/bookmark" user={user} setModal={setModal} component={Bookmark} />
+                    <PrivateRoute path="/write" user={user} component={Write} />
+                    <Route component={NotFound} />
+                </Switch>
             </div>
             {modal?.open && <Modal modal={modal} setModal={setModal} setToken={setToken} setUser={setUser} />}
         </Router>

@@ -25,22 +25,7 @@ export default function Write({ user }) {
         tabSpaces: 12,
         requestHeaders: {
             Authorization: 'Bearer ' + localStorage.token,
-        },
-        toolbarButtons: {
-            moreText: {
-                buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting'],
-            },
-            moreParagraph: {
-                buttons: ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote'],
-            },
-            moreRich: {
-                buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'fontAwesome', 'specialCharacters', 'embedly', 'insertFile', 'insertHR'],
-            },
-            moreMisc: {
-                buttons: ['undo', 'redo', 'fullscreen', 'print', 'getPDF', 'spellChecker', 'selectAll', 'html', 'help'],
-                align: 'right',
-                buttonsVisible: 2,
-            },
+            'Content-Type': 'multipart/form-data; boundary=12345',
         },
         imageManagerPreLoader: 'https://i.pinimg.com/originals/d7/34/49/d73449313ecedb997822efecd1ee3eac.gif',
         imageManagerLoadURL: 'http://' + path + '/api/v1/images',
@@ -69,18 +54,13 @@ export default function Write({ user }) {
             'image.replaced': function ($img, response) {
                 // Image was replaced in the editor.
             },
-            'image.removed': function ($img) {
-                // api.delete('/image', {
-                //     data: {
-                //         link: $img[0].currentSrc,
-                //     },
-                // })
-            },
+            'image.removed': function ($img) {},
             'image.error': function (error, response) {
                 console.log('err', response)
             },
         },
     }
+
     let history = useHistory()
     const [title, setTitle] = useState('')
     const [html, setHtml] = useState('')

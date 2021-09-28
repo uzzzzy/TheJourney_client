@@ -3,13 +3,13 @@ import { useEffect, useState } from 'react'
 import { api, path } from '../config/api'
 
 import style from '../styles/pages/Landing.module.css'
-import CardJourney from '../components/CardJourney'
+import CardJourney, { CardJourneyLoad } from '../components/CardJourney'
 
 export default function Landing({ user, setModal }) {
     const [fetch, setFetch] = useState('init')
     const [params, setParams] = useState({
         search: '',
-        offset: 0,
+        offset: 4,
         limit: 4,
         order: 'createdAt,desc',
     })
@@ -50,19 +50,15 @@ export default function Landing({ user, setModal }) {
                             ...e,
                             journeys: [...e.journeys, item],
                         }))
-                    }, i * 1000)
+                    }, i * 1000 + 1000)
                 })
 
                 setTimeout(() => {
-                    console.log('done')
                     setFetch('done')
-                }, res.data.data.journeys.length * 1000 - 1000)
+                }, res.data.data.journeys.length * 1000 - 200)
             })
         }
-
-        if (fetch) {
-        }
-    }, [params, fetch])
+    }, [params, fetch, user])
 
     const loadMore = () => {
         setParams((e) => ({ ...e, offset: offset + limit }))
@@ -70,21 +66,28 @@ export default function Landing({ user, setModal }) {
     }
 
     const handleSort = (e) => {
+        let order
         switch (e.target.value) {
+            case 'highv':
+                order = 'seen,desc'
+                break
+            case 'lowv':
+                order = 'seen,asc'
+                break
             case 'old':
-                setParams((e) => ({ ...e, order: 'createdAt,asc' }))
+                order = 'createdAt,asc'
                 break
             default:
-                setParams((e) => ({ ...e, order: 'createdAt,desc' }))
+                order = 'createdAt,desc'
         }
-        setParams((e) => ({ ...e, offset: 0 }))
+        setParams((e) => ({ ...e, order, offset: 0 }))
         setFetch('init')
     }
 
     return (
-        <div className="pt-32 mb-48">
+        <div className="mb-48 w-full">
             {!localStorage.token && (
-                <section className="-mt-32">
+                <section className="jumbotron-wrapper">
                     <div className="flex px-3 justify-center">
                         <div className="container -mb-96 z-10">
                             <h1 className="text-2xl md:text-6xl mt-40 text-white font-bold">
@@ -101,7 +104,7 @@ export default function Landing({ user, setModal }) {
             )}
 
             <section className={style.journeys}>
-                <div className="container px-5 lg:px-0">
+                <div className="container md:pt-10 px-5 lg:px-0">
                     <h1>Journey</h1>
                     <Search setParams={setParams} setFetch={setFetch} />
 
@@ -116,6 +119,8 @@ export default function Landing({ user, setModal }) {
                         <select className="border border-gray-300 capitalize rounded-full text-gray-600 h-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none" onChange={handleSort}>
                             <option value="new">Newest</option>
                             <option value="old">Oldest</option>
+                            <option value="highv">Most View</option>
+                            <option value="lowv">Least View</option>
                         </select>
                     </div>
                 </div>
@@ -127,22 +132,14 @@ export default function Landing({ user, setModal }) {
                         {journeys?.map((item, i) => (
                             <CardJourney key={item.id} item={item} user={user} setModal={setModal} />
                         ))}
+                        {fetch === 'loadMore' && fetch === 'loadMore' && <CardJourneyLoad />}
                     </section>
                 </div>
             </section>
-            {count - offset - limit > 0 && fetch === 'done' ? (
+            {count - offset - limit > 0 && fetch === 'done' && (
                 <button className="w-full" onClick={loadMore}>
                     Load More
                 </button>
-            ) : (
-                fetch === 'loadMore' && (
-                    <div className="w-full flex justify-center">
-                        <svg fill="none" className="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                            <path clipRule="evenodd" d="M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z" fill="currentColor" fillRule="evenodd" />
-                        </svg>
-                        <div>Loading ...</div>
-                    </div>
-                )
             )}
         </div>
     )
@@ -155,10 +152,10 @@ function Search({ setParams, setFetch }) {
     }
 
     return (
-        <div className="w-auto h-10 pl-3 pr-2 m-10 bg-white border rounded-full flex justify-between items-center relative">
+        <div className="w-auto h-10 pl-3 pr-2 my-2 md:my-10 md:mx-10 bg-white border rounded-full flex justify-between items-center relative">
             <input type="search" name="search" id="search" placeholder="Search" className="appearance-none w-full outline-none focus:outline-none active:outline-none" onChange={handleSearch} />
-            <button type="submit" className="ml-1 outline-none focus:outline-none active:outline-none flex flex-row gap-2 bg-blue-300 px-2  rounded-full text-white" onClick={() => setFetch('init')}>
-                search
+            <button type="submit" className="ml-1 outline-none focus:outline-none active:outline-none flex flex-row gap-2 md:bg-blue-300 px-1 md:px-2  rounded-full md:text-white" onClick={() => setFetch('init')}>
+                <span className="hidden md:block">search</span>
                 <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} viewBox="0 0 24 24" className="w-6 h-6">
                     <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>

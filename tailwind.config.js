@@ -11,7 +11,9 @@ module.exports = {
         extend: {},
     },
     variants: {
-        extend: {},
+        extend: {
+            filter: ['hover'],
+        },
     },
     plugins: [
         function ({ addComponents }) {

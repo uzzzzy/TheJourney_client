@@ -11,6 +11,7 @@
     -webkit-backdrop-filter: blur(16px);
     border-radius: 10px;
     overflow: auto;
+    overflow-x: hidden;
     max-height: 80vh;
 }
 

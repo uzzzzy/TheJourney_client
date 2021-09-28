@@ -10,9 +10,29 @@ export default function modal({ modal, setModal, setToken, setUser }) {
         if (e.target.id === 'modal') setModal({ modal: false })
     }
 
+    const HandleOpt = () => {
+        let modalContent
+        switch (opt) {
+            case 'register':
+            case 'login':
+                modalContent = <Form opt={opt} setModal={setModal} setToken={setToken} />
+                break
+            case 'success':
+                modalContent = <Success message={message} />
+                break
+            case 'logout':
+                modalContent = <Logout setModal={setModal} setToken={setToken} setUser={setUser} />
+                break
+
+            default:
+                modalContent = 'Modal'
+        }
+        return modalContent
+    }
+
     return (
         <div id="modal" className={style.modal} onClick={closeModal}>
-            {opt === 'login' || opt === 'register' ? <Form opt={opt} setModal={setModal} setToken={setToken} /> : opt === 'success' ? <Success message={message} /> : opt === 'logout' && <Logout setModal={setModal} setToken={setToken} setUser={setUser} />}
+            <HandleOpt />
         </div>
     )
 }

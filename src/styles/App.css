@@ -63,3 +63,7 @@ article a,
 .content {
     padding-top: 85px;
 }
+
+.jumbotron-wrapper {
+    margin-top: -85px;
+}

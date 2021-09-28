@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import parse from 'html-react-parser'
 
 import { api } from '../config/api'
 import { formatDate } from '../functions'
 import { IconBookmark, IconBookmarkFill } from '../assets'
 
-export default function Journey() {
+export default function Journey({ user, setModal }) {
     const [bm, setBM] = useState(false)
     const { id } = useParams()
     const [article, setArticle] = useState()
@@ -14,21 +14,31 @@ export default function Journey() {
     useEffect(() => {
         if (id) {
             api.get('/journey/' + id).then((res) => {
-                console.log(res.data.data.bookmarks)
                 setArticle(res.data.data)
+                res.data.data.bookmarks.forEach((bookmark) => {
+                    if (user?.id === bookmark.userId) setBM(true)
+                })
             })
         }
-    }, [id])
+    }, [id, user])
 
     const handleClick = (e) => {
-        if (e.target.id === 'bookmark') {
+        if (e.target.id === 'bookmark' && user) {
+            let tempArr = article.bookmarks
+
             if (bm === false) {
+                tempArr.push({ userId: user.id })
                 api.post('/bookmark', { id })
             } else {
+                tempArr.pop()
                 api.delete('/bookmark/' + id)
             }
             setBM(!bm)
         } else {
+            setModal({
+                open: true,
+                opt: 'login',
+            })
         }
     }
 
@@ -50,10 +60,12 @@ export default function Journey() {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
-                                {article?.seen}
+                                {article?.seen + 1}
                             </h5>
                         </div>
-                        <h5 className="font-bold text-gray-500 ">Written By {article?.user.fullName}</h5>
+                        <Link to={'/user/' + article?.user.id}>
+                            <h5 className="font-bold text-gray-500 ">Written By {article?.user.fullName}</h5>
+                        </Link>
                     </div>
 
                     <h3 className="text-4xl font-extrabold text-gray-500 font-sans">{article?.title} </h3>

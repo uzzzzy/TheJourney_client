@@ -32,7 +32,7 @@ export default function Navbar({ user, setModal }) {
     const handleBtn = (e) => {
         setDropdown(false)
         const btn = e.target.id.split('-')[1]
-        console.log(btn)
+
         switch (btn) {
             case 'register':
             case 'login':
@@ -51,15 +51,15 @@ export default function Navbar({ user, setModal }) {
     }
 
     return (
-        <nav className={`flex -bottom-0 justify-center px-5 lg:px-0 item-center w-full fixed ${shadow}`} style={{ backgroundColor: `rgb(32, 118, 155, ${offset + (user || offset > 0 ? 0.15 : 0)})` }}>
+        <nav className={`flex rounded-b-2xl md:rounded-none -bottom-0 justify-center px-5 lg:px-0 item-center w-full fixed ${shadow}`} style={{ backgroundColor: `rgb(32, 118, 155, ${offset + (user || offset > 0 ? 0.15 : 0)})` }}>
             <div className="container">
                 <div className="flex justify-between items-center w-full h-full">
                     <Link to="/">
-                        <img src={Logo} alt="The Journey" />
+                        <img src={Logo} className="absolute z-50 top-5 md:static" alt="The Journey" />
                     </Link>
 
                     <div id="btn-dropdown" className={dropdown ? 'md:hidden text-black text-3xl z-50' : 'md:hidden text-white text-3xl z-50'} onClick={handleBtn}>
-                        <svg id="btn-dropdown" xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg id="btn-dropdown" xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 stroke-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path id="btn-dropdown" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </div>
@@ -115,10 +115,14 @@ export default function Navbar({ user, setModal }) {
             </div>
             {dropdown && (
                 <div className=" md:hidden absolute z-40 h-screen w-screen bg-opacity-80 bg-blue-200 overflow-y-hidden bg-gradient-to-l from-white">
-                    <div class="grid grid-cols-3 grid-rows-3 place-items-center h-full w-screen">
-                        <div class="col-start-2 row-start-2 w-screen">
+                    <div className="grid grid-cols-1 grid-rows-1 place-items-center h-full w-screen">
+                        <div className="col-start-2 row-start-2 w-screen">
                             {user ? (
-                                <div className="grid grid-flow-row justify-end grid-rows-2 gap-9 pr-5">
+                                <div className="grid grid-flow-row justify-end grid-rows-2 gap-9 pr-5 mb-20">
+                                    <div className="absolute w-full flex flex-col inset-x-0 top-32">
+                                        <img id="btn-dropdown" className="mx-auto h-40 w-40 object-cover rounded-full" src={user.image} alt={user?.fullName} />
+                                        <h2 className="mx-auto mt-5 font-bold text-xl">{user.fullName}</h2>
+                                    </div>
                                     <button id="btn-profile" className=" w-80 flex justify-end p-2 text-gray-500 font-bold gap-2" onClick={handleBtn}>
                                         <span id="btn-profile" className="text-yellow-500">
                                             Profile
@@ -145,12 +149,12 @@ export default function Navbar({ user, setModal }) {
                                     </button>
                                 </div>
                             ) : (
-                                <div className="flex flex-col justify-center px-10 gap-2">
-                                    <button id="btn-login" className="bg-white text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center" onClick={handleBtn}>
+                                <div className="flex flex-row justify-between px-5 gap-2 mb-20">
+                                    <button id="btn-login" className="bg-white text-gray-800 font-bold rounded border-b-2 border-blue-500 hover:border-blue-600 hover:bg-blue-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center w-full" onClick={handleBtn}>
                                         Login
                                     </button>
 
-                                    <button id="btn-register" className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center" onClick={handleBtn}>
+                                    <button id="btn-register" className="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center w-full" onClick={handleBtn}>
                                         Register
                                     </button>
                                 </div>
