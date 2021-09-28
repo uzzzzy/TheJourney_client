@@ -37,7 +37,7 @@ export default function Bookmark({ user, setModal }) {
     return (
         <section className="w-full flex justify-center px-4 sm:px-6 lg:px-4  mb-12">
             <div className="container">
-                <h2 className="mt-20 text-2xl font-extrabold text-gray-900">Bookmark</h2>
+                <h2 className="mt-20 lg:mb-40 text-4xl font-extrabold text-gray-900">Bookmark</h2>
                 <section className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-8 ">
                     {journeys?.map((item, i) => (
                         <CardJourney key={item.id} item={item} user={user} />

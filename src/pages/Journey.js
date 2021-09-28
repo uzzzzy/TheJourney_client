@@ -45,8 +45,9 @@ export default function Journey({ user, setModal }) {
     return (
         <div className="container flex justify-center flex-col pb-12">
             <div className="px-2 md:px-16 flex justify-center flex-col mt-16">
-                <div className="flex flex-col">
-                    <div className="mt-2 mb-5 flex flex-col md:flex-row md:justify-between">
+                <article className="flex flex-col">
+                    <h3 className="text-4xl font-extrabold text-gray-700 font-sans">{article?.title} </h3>
+                    <div className="mt-5 flex flex-col md:flex-row md:justify-between">
                         <h5 className="text-blue-500">{formatDate(article?.createdAt)}</h5>
                         <div className="flex flex-row gap-5">
                             <h5 className="flex flex-row gap-1 text-pink-500">
@@ -63,15 +64,16 @@ export default function Journey({ user, setModal }) {
                                 {article?.seen + 1}
                             </h5>
                         </div>
-                        <Link to={'/user/' + article?.user.id}>
-                            <h5 className="font-bold text-gray-500 ">Written By {article?.user.fullName}</h5>
-                        </Link>
+                        <h5 className="font-bold text-gray-500 ">
+                            Written By
+                            <Link to={'/user/' + article?.user.id}>{' ' + article?.user.fullName}</Link>
+                        </h5>
                     </div>
 
-                    <h3 className="text-4xl font-extrabold text-gray-500 font-sans">{article?.title} </h3>
-                    <img id="bookmark" className="mb-12 cursor-pointer place-self-end" src={bm ? IconBookmarkFill : IconBookmark} alt="bookmark" onClick={handleClick} />
-                    <article>{article && parse(article.description)}</article>
-                </div>
+                    <hr className="border-4 border-gray-50 mt-5" />
+                    <img id="bookmark" className="text-green-500 min-w-0 mb-12 h-12 mx-0 -mt-3 cursor-pointer place-self-end" src={bm ? IconBookmarkFill : IconBookmark} alt="bookmark" onClick={handleClick} />
+                    <div>{article && parse(article.description)}</div>
+                </article>
             </div>
         </div>
     )

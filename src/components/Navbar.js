@@ -2,9 +2,7 @@ import { Link, useHistory } from 'react-router-dom'
 
 import style from '../styles/components/Navbar.module.css'
 
-import Logo from '../assets/logo.svg'
-
-import { IconBookmark, IconLogout, IconUser, IconWrite } from '../assets'
+import { Logo, LogoDark, IconBookmark, IconLogout, IconUser, IconWrite } from '../assets'
 
 import { useEffect, useState } from 'react'
 
@@ -55,7 +53,7 @@ export default function Navbar({ user, setModal }) {
             <div className="container">
                 <div className="flex justify-between items-center w-full h-full">
                     <Link to="/">
-                        <img src={Logo} className="absolute z-50 top-5 md:static" alt="The Journey" />
+                        <img src={user ? LogoDark : Logo} className="absolute z-50 top-5 md:static" alt="The Journey" />
                     </Link>
 
                     <div id="btn-dropdown" className={dropdown ? 'md:hidden text-black text-3xl z-50' : 'md:hidden text-white text-3xl z-50'} onClick={handleBtn}>

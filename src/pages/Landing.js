@@ -138,7 +138,9 @@ export default function Landing({ user, setModal }) {
             </section>
             {count - offset - limit > 0 && fetch === 'done' && (
                 <button className="w-full" onClick={loadMore}>
-                    Load More
+                    <div className="inline-flex items-center bg-white leading-none text-purple-600 rounded-full p-2 shadow hover:shadow-xl text-sm md:w-96 justify-center">
+                        <span className="inline-flex bg-blue-600 hover:bg-indigo-400 font-bold text-white rounded-full h-6 px-3 justify-center items-center w-full">Load More</span>
+                    </div>
                 </button>
             )}
         </div>

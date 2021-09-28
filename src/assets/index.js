@@ -2,6 +2,7 @@ const navbar = './navbar/'
 const form = './form/'
 
 export const Logo = require('./logo.svg').default
+export const LogoDark = require('./logo-dark.svg').default
 
 // icon
 export const IconUser = require(navbar + 'profile.svg').default

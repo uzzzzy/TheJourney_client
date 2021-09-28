@@ -25,8 +25,26 @@ export default function Write({ user }) {
         tabSpaces: 12,
         requestHeaders: {
             Authorization: 'Bearer ' + localStorage.token,
-            'Content-Type': 'multipart/form-data; boundary=12345',
         },
+        toolbarButtons: {
+            moreText: {
+                buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'subscript', 'superscript', 'fontFamily', 'fontSize', 'textColor', 'backgroundColor', 'inlineClass', 'inlineStyle', 'clearFormatting'],
+            },
+            moreParagraph: {
+                buttons: ['alignLeft', 'alignCenter', 'formatOLSimple', 'alignRight', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote'],
+            },
+            moreRich: {
+                buttons: ['insertLink', 'insertImage', 'insertTable', 'insertHR'],
+            },
+            moreMisc: {
+                buttons: ['undo', 'redo', 'fullscreen', 'selectAll', 'html'],
+            },
+        },
+        // Change buttons for XS screen.
+        toolbarButtonsXS: [
+            ['undo', 'redo'],
+            ['bold', 'italic', 'underline', 'insertImage'],
+        ],
         imageManagerPreLoader: 'https://i.pinimg.com/originals/d7/34/49/d73449313ecedb997822efecd1ee3eac.gif',
         imageManagerLoadURL: 'http://' + path + '/api/v1/images',
         imageManagerLoadMethod: 'GET',
@@ -67,7 +85,7 @@ export default function Write({ user }) {
     const [preview, setPreview] = useState(false)
 
     const d = new Date()
-    const datetime = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate()
+    const datetime = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate()
 
     const handleChange = (e) => {
         if (e.target?.id) {
@@ -113,6 +131,7 @@ export default function Write({ user }) {
                             <h3 className="text-3xl font-bold">{title ? title : '<notitle>'}</h3>
                         </div>
                         <h5 className="text-sm font-bold text-gray-500 my-2 mt-5">by: {user.fullName}</h5>
+                        {console.log(datetime)}
                         <h5 className="mb-5 text-md text-blue-500">{formatDate(datetime)}</h5>
                         <div>{parse(html)}</div>
                     </article>

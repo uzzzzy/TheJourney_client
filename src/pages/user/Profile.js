@@ -82,8 +82,9 @@ export default function Profile({ user, setUser }) {
     }
 
     return (
-        <div className="container pt-48">
-            <div className="font-sans w-full flex flex-row justify-center items-center">
+        <div className="container">
+            <h2 className="mt-20 mx-4 lg:mx-0 lg:mb-40 text-4xl font-extrabold text-gray-900">Profile</h2>
+            <div className="mt-24 font-sans w-full flex flex-row justify-center items-center">
                 <div className=" w-96 bg-white shadow-xl hover:shadow rounded-lg relative">
                     <label htmlFor="image" className="text-red-500">
                         {user.id === data.id && (
