@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react'
 
 import { api, path } from '../config/api'
 
-import style from '../styles/pages/Landing.module.css'
 import CardJourney, { CardJourneyLoad } from '../components/CardJourney'
+
+import style from '../styles/pages/Landing.module.css'
 
 export default function Landing({ user, setModal }) {
     const [fetch, setFetch] = useState('init')

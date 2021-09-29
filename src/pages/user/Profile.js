@@ -32,6 +32,7 @@ export default function Profile({ user, setUser }) {
                     const { user: u } = res.data.data
 
                     setData((e) => ({ ...e, id: u.id, fullName: u.fullName, email: u.email, address: u.address, image: u.image }))
+
                     if (loading) {
                         u.journeys.forEach((j, i) => {
                             bmTemp += j.bookmarks.length
@@ -86,8 +87,8 @@ export default function Profile({ user, setUser }) {
             <h2 className="mt-20 mx-4 lg:mx-0 lg:mb-40 text-4xl font-extrabold text-gray-900">Profile</h2>
             <div className="mt-24 font-sans w-full flex flex-row justify-center items-center">
                 <div className=" w-96 bg-white shadow-xl hover:shadow rounded-lg relative">
-                    <label htmlFor="image" className="text-red-500">
-                        {user.id === data.id && (
+                    <label htmlFor="image" className="text-red-500 cursor-pointer">
+                        {user?.id === data.id && (
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute top-16 right-28" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                 <path fillRule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clipRule="evenodd" />
@@ -95,7 +96,7 @@ export default function Profile({ user, setUser }) {
                         )}
                         <img className="w-48 h-48 bg-gray-200 mx-auto rounded-full -mt-20 border-8 border-white object-cover" src={data?.image} alt="" />
                     </label>
-                    {user.id === data.id && <input id="image" name="image" type="file" className="hidden" onChange={handleOnChange} />}
+                    {user?.id === data.id && <input id="image" name="image" type="file" className="hidden" onChange={handleOnChange} />}
                     <div className="text-center mt-2 text-3xl font-extrabold">{data?.fullName}</div>
                     <div className="text-center mt-2 font-light text-sm">{data?.email}</div>
                     <div className="px-6 text-center my-2 font-light text-sm">

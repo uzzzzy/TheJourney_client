@@ -6,16 +6,16 @@ import { api, setAuthToken } from './config/api'
 import Modal from './components/modals'
 import Navbar from './components/Navbar'
 import PrivateRoute from './components/PrivateRoute'
+import Loading from './components/Loading'
 
 import Landing from './pages/Landing'
 import Journey from './pages/Journey'
 import Profile from './pages/user/Profile'
 import Write from './pages/user/Write'
 import NotFound from './pages/NotFound'
+import Bookmark from './pages/user/Bookmark'
 
 import './styles/App.css'
-import Loading from './components/Loading'
-import Bookmark from './pages/user/Bookmark'
 
 function App() {
     const [login, setLogin] = useState()

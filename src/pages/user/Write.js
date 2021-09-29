@@ -20,6 +20,7 @@ export default function Write({ user }) {
         heightMin: 300,
         heightMax: 500,
         placeholderText: '',
+        pastePlain: false,
         toolbarSticky: false,
         imageSplitHTML: true,
         tabSpaces: 12,
