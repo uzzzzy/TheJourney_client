@@ -65,7 +65,7 @@ export default function CardJourney({ item, user, setModal }) {
             <div className="px-3 py-4 bg-gradient-to-r from-blue-500 h-60 -mt-60 pr-10 md:pr-3 md:mt-0 md:from-transparent ">
                 <h1 className="text-lg font-extrabold capitalize bg-white px-3 md:px-0 rounded-lg mt-1 text-blue-500 md:text-black h-8 truncate md:whitespace-normal md:h-auto">{item.title}</h1>
                 <h3 className="text-sm text-gray-300 font-semibold font-mono pb-4 my-1 ">{formatDate(item.createdAt)}</h3>
-                <div className="text-white md:text-black md:block h-24 overflow-ellipsis overflow-hidden"> {parse(item.description.replace(/<img[^>]*>/g, ''))}</div>
+                <div className="text-white md:text-black md:block h-24 overflow-ellipsis overflow-hidden"> {parse(item.description.replace(/<img[^>]*>/g, '').replace(/<\/?[^>]+(>|$)/g, ''))}</div>
             </div>
         </div>
     )
