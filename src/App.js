@@ -56,15 +56,10 @@ function App() {
                     <Route exact path="/">
                         {login !== undefined ? <Landing user={user} setModal={setModal} /> : <Loading />}
                     </Route>
-                    <Route path="/journey/:id">
-                        <Journey user={user} setModal={setModal} />
-                    </Route>
+                    <Route path="/journey/:id">{login !== undefined ? <Journey user={user} setModal={setModal} /> : <Loading />}</Route>
+                    <Route path="/user/:id">{login !== undefined ? <Profile user={user} setModal={setModal} /> : <Loading />}</Route>
 
-                    <Route path="/user/:id">
-                        <Profile user={user} setModal={setModal} />
-                    </Route>
-
-                    {/* User Route */}
+                    {/* Private Route */}
                     <PrivateRoute path="/profile" user={user} setUser={setUser} component={Profile} />
                     <PrivateRoute path="/bookmark" user={user} setModal={setModal} component={Bookmark} />
                     <PrivateRoute path="/write" user={user} component={Write} />
