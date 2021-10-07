@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const path = '192.168.1.5:5000'
+export const path = 'localhost:5000'
 
 export const api = axios.create({
     baseURL: 'http://' + path + '/api/v1',
