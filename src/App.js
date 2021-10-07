@@ -61,7 +61,7 @@ function App() {
                     </Route>
 
                     <Route path="/user/:id">
-                        <Profile user={user} />
+                        <Profile user={user} setModal={setModal} />
                     </Route>
 
                     {/* User Route */}

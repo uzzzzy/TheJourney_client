@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import CardJourney, { CardJourneyLoad } from '../../components/CardJourney'
 import { api } from '../../config/api'
 
-export default function Profile({ user, setUser }) {
+export default function Profile({ user, setUser, setModal }) {
     const [loading, setLoading] = useState('init')
     const [data, setData] = useState({
         fullName: '',
@@ -119,7 +119,7 @@ export default function Profile({ user, setUser }) {
                 <div className="container">
                     <section className="mt-6 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-8 ">
                         {journeys?.map((item, i) => (
-                            <CardJourney key={item.id} item={item} user={user} />
+                            <CardJourney key={item.id} item={item} user={user} setModal={setModal} />
                         ))}
 
                         {loading === 'fetching' && <CardJourneyLoad />}
