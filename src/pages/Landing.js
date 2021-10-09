@@ -133,7 +133,7 @@ export default function Landing({ user, setModal }) {
                         {journeys?.map((item, i) => (
                             <CardJourney key={item.id} item={item} user={user} setModal={setModal} />
                         ))}
-                        {fetch === 'loadMore' && fetch === 'loadMore' && <CardJourneyLoad />}
+                        {fetch === 'loadMore' && <CardJourneyLoad />}
                     </section>
                 </div>
             </section>

@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-import { api, path } from '../../config/api'
+import { api } from '../../config/api'
 import Article from './Article'
+import Comment from './Comment'
 
 export default function Journey({ user, setModal }) {
     const [bm, setBM] = useState(false)
@@ -24,6 +25,7 @@ export default function Journey({ user, setModal }) {
         <div className="container flex justify-center flex-col pb-12">
             <div className="px-2 md:px-16 flex justify-center flex-col mt-16">
                 <Article id={id} article={article} user={user} bm={bm} setBM={setBM} setModal={setModal} />
+                <Comment id={id} user={user} comments={article?.comments} />
             </div>
         </div>
     )

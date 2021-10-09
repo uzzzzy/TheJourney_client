@@ -57,23 +57,6 @@ export default function Write({ user }) {
         imageMaxSize: 10 * 1000 * 1000,
         imageAllowedTypes: ['jpeg', 'jpg', 'png'],
         events: {
-            'image.beforeUpload': function (files) {
-                // Return false if you want to stop the image upload..
-            },
-            'image.uploaded': function (response) {
-                // Image was uploaded to the server.
-                // editor.file.insert(e.link)
-                // return false
-            },
-            'image.inserted': function ($img, response) {
-                // Image was inserted in the editor.
-                // console.log($img[0])
-                // $img[0].style = ''
-            },
-            'image.replaced': function ($img, response) {
-                // Image was replaced in the editor.
-            },
-            'image.removed': function ($img) {},
             'image.error': function (error, response) {
                 console.log('err', response)
             },

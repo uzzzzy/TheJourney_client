@@ -59,7 +59,6 @@ function App() {
                     <Route path="/journey/:id">{login !== undefined ? <Journey user={user} setModal={setModal} /> : <Loading />}</Route>
                     <Route path="/user/:id">{login !== undefined ? <Profile user={user} setModal={setModal} /> : <Loading />}</Route>
 
-                    {/* Private Route */}
                     <PrivateRoute path="/profile" user={user} setUser={setUser} component={Profile} />
                     <PrivateRoute path="/bookmark" user={user} setModal={setModal} component={Bookmark} />
                     <PrivateRoute path="/write" user={user} component={Write} />
