@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-export const path = 'localhost:5000'
+export const path = process.env.REACT_APP_API_URL || 'https://yzua-express.herokuapp.com'
 
 export const api = axios.create({
-    baseURL: 'http://' + path + '/api/v1',
+    baseURL: path + '/api/v1',
 })
 
 export const setAuthToken = (token) => {
