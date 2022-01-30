@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-import { api, path } from '../config/api'
+import { api } from '../config/api'
 
 import CardJourney, { CardJourneyLoad } from '../components/CardJourney'
 
