@@ -103,7 +103,7 @@ export default function Landing({ user, setModal }) {
                     </div>
                     <img
                         className={style.jumbotron}
-                        src={path + '/uploads/jumbotron.jpg'}
+                        src={path + '/uploads/Jumbotron.jpg'}
                         alt="Jumbotron"
                     />
                 </section>
